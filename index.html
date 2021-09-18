@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Food App</title>
+<link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+  <header>
+    <h1>Daily nution Tracker</h1>
+  </header>
+
+<h1>nution App</h1>
+
+  <div id="main-container">
+    <div class="">
+      <!--  left side of webpage. used to search for food    -->
+      <div id="search-input">
+          <div id="input-field" class="over-element">
+            </div>
+        <div id="search-box"class="under-input">
+
+            <button type="button" class="search" name="search">Search</button>
+            <input type="text" class="search" name="search-field" value="food item">
+
+        </div>
+
+        <div id="food-box" class="under-input">
+          <div id="food-item">
+            <h3 id="displayed-food">Onion</h3>
+          </div>
+          <div id="infobox" class="">
+            <div id="info-left" class="info">
+              <p class="info-font">Carbs: 10</p>
+              <p class="info-font">Carbs: 10</p>
+            </div>
+            <div id="info-right" class="info">
+              <p class="info-font">Carbs: 10</p>
+              <p class="info-font">Carbs: 10</p>
+            </div>
+
+          </div>
+        </div>
+        <div id="all-foods-box" class="under-input">
+
+        </div>
+      </div>
+      <!-- right side of the webpage. used for data -->
+
+      <div id="info-data">
+        <div id="user-info">
+            <h3>Welcome: Daniel Esmail</h3>
+            <h4>Your Macros are:</h4>
+            <div class="user-macro">
+                <p>Carbs: 160g</p>
+            </div>
+            <div class="user-macro">
+                <p>Protein: 160g</p>
+            </div>
+            <div class="user-macro">
+                <p>Fat: 60g</p>
+            </div>
+
+
+        </div>
+
+        <div id="pie-graph">
+          <div id="pie-chart">
+
+          </div>
+        </div>
+        <div id="bar-graph" class="">
+          <div id="carbs-bar" class="bar-graph">
+            <p>Carbs 40/160</p>
+          </div>
+          <div id="protein-bar" class="bar-graph">
+              <p>Protein 40/160</p>
+          </div>
+          <div id="fat-bar" class="bar-graph">
+              <p>Fat 40/160</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="app.js">
+
+</script>
+</body>
+</html>
