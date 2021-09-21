@@ -21,22 +21,24 @@
         <div id="search-box"class="under-input">
 
             <button type="button" class="search" name="search">Search</button>
-            <input type="text" class="search" name="search-field" value="food item">
+            <input type="text" class="search" name="search-field" value="">
 
         </div>
 
         <div id="food-box" class="under-input">
           <div id="food-item">
-            <h3 id="displayed-food">Onion</h3>
+            <h3 id="displayed-food"></h3>
           </div>
           <div id="infobox" class="">
             <div id="info-left" class="info">
-              <p class="info-font">Carbs: 10</p>
-              <p class="info-font">Carbs: 10</p>
+              <p id="Cal-info" class="info-font">Calories:</p>
+              <p id="Carb-info" class="info-font">Carbs:</p>
+              <p id="Sugar-info" class="info-font">Sugar:</p>
             </div>
             <div id="info-right" class="info">
-              <p class="info-font">Carbs: 10</p>
-              <p class="info-font">Carbs: 10</p>
+              <p id="serving-info" class="info-font">Serving:</p>
+              <p id="protein-info" class="info-font">Protein:</p>
+              <p id="Fat-info" class="info-font">Fat:</p>
             </div>
 
           </div>
@@ -49,7 +51,7 @@
 
       <div id="info-data">
         <div id="user-info">
-            <h3>Welcome: Daniel Esmail</h3>
+            <h3>Welcome: User_Name</h3>
             <h4>Your Macros are:</h4>
             <div class="user-macro">
                 <p>Carbs: 160g</p>
@@ -66,7 +68,7 @@
 
         <div id="pie-graph">
           <div id="pie-chart">
-
+            <canvas id="mycanvas" width="350" height="200"></canvas>
           </div>
         </div>
         <div id="bar-graph" class="">

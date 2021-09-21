@@ -1,9 +1,12 @@
 div{
 
 }
+canvas{
+  border: solid black;
+}
 
 #main-container{
-  width: 100%;
+  width: 90%;
   height: 100%;
   position: absolute;
 }
@@ -11,7 +14,7 @@ div{
 #search-input{
   display: inline-block;
   float: left;
-  width: 48%;
+  width: 45%;
   height: 700px;
   position: relative;
 }
@@ -77,7 +80,7 @@ div{
 #info-data{
   display: inline-block;
   float: right;
-  width: 48%;
+  width: 45%;
   height: 700px;
 }
 
