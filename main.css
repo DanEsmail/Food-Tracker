@@ -3,12 +3,26 @@ div{
 }
 canvas{
   border: solid black;
-}
+}'
 
 #main-container{
   width: 90%;
   height: 100%;
   position: absolute;
+}
+
+/* -------------------------left Side  of page--------------------------------*/
+#input-field{
+  z-index: 2;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  visibility: visible;
+  position: relative;
+
+}
+input{
+  margin-bottom: 15px;
 }
 
 #search-input{
@@ -17,17 +31,26 @@ canvas{
   width: 45%;
   height: 700px;
   position: relative;
+
 }
 
 #search-input > div{
-  position: relative;
-  top:2%;
+
+
   left: -1%;
   border: solid black;
   margin-top: 4%;
-  border-radius: 5%
-}
 
+
+}
+.under-input{
+  z-index: 1;
+  border-radius: 5%;
+  position: relative;
+  top: -100%;
+  background-color: white;
+
+}
 #search-box{
   width: 100%;
   height: 10%;
@@ -77,6 +100,8 @@ canvas{
   height: 40%;
 }
 
+
+/* -------------------------Right Side of page --------------------------------*/
 #info-data{
   display: inline-block;
   float: right;
@@ -99,14 +124,14 @@ canvas{
 
 }
 #user-info > h4{
-  margin: 2%;
+  margin: 0.5em;
 }
 #user-info > h3{
-  margin: 2%;
+  margin: 0.5em;
 }
 .user-macro{
   display: inline-block;
-  margin: 4%;
+  margin-left: 0.5em;
 }
 
 #pie-graph{

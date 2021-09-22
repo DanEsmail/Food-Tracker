@@ -17,7 +17,57 @@
       <!--  left side of webpage. used to search for food    -->
       <div id="search-input">
           <div id="input-field" class="over-element">
-            </div>
+            <form id="user-info-form">
+
+
+            <h4>Information </h4>
+
+            <label for="name">Name</label>
+            <input type="text" name="name" value="" min="0"><br>
+
+            <label for="age">Age</label>
+            <input type="number" name="age" value="" min="0">  <br>
+
+            <label for="feet">feet</label>
+            <input type="number" name="feet" value="" min="0"><br>
+
+            <label for="inch">inches</label>
+            <input type="number" name="inch" value="" min="0"><br>
+
+            <label for="weight">weight in pounds</label>
+            <input type="number" name="weight" value="" min="0"><br>
+
+            <input  type="radio" name="gender" value="Male">
+            <label class="block" for="activity-level">Male</label><br>
+            <input  type="radio" name="gender" value="Female">
+            <label class="block" for="activity-level">Female</label><br>
+
+            <h4>Activity Level</h4>
+            <br>
+            <input  type="radio" name="activity-level" value="Sedentary">
+            <label class="block" for="activity-level">Sedentary: Little or no exercise, desk job</label><br>
+            <input  type="radio" name="activity-level" value="Lightly Active">
+            <label class="block" for="activity-level">Lightly Active: Light exercise, sports 1 to 3 days a week</label><br>
+            <input  type="radio" name="activity-level" value="Moderately Active">
+            <label class="block" for="activity-level">Moderately Active: Moderate exercise, sports 3 to 5 days a weel</label><br>
+            <input  type="radio" name="activity-level" value="Very Active">
+            <label class="block" for="activity-level">Very Active: Heavy Exercise, sports 6-7 days a week</label><br>
+            <input  type="radio" name="activity-level" value="Extremely Active">
+            <label class="block" for="activity-level">Extremely Active: Very heavy exercise, Pysical job or training 2xDay</label><br>
+
+
+            <h4>Pounds Lost Per Week</h4>
+            <br>
+            <input  type="radio" name="pounds" value="0.5">
+            <label class="block" for="pounds" >0.5 lbs</label><br>
+            <input  type="radio" name="pounds" value="1">
+            <label class="block" for="pounds">1 lbs</label><br>
+            <input  type="radio" name="pounds" value="2">
+            <label class="block" for="pounds">2 lbs</label><br>
+
+            </form>
+            <button type="button" name="submit-button">Submit</button>
+          </div>
         <div id="search-box"class="under-input">
 
             <button type="button" class="search" name="search">Search</button>
@@ -51,16 +101,16 @@
 
       <div id="info-data">
         <div id="user-info">
-            <h3>Welcome: User_Name</h3>
+            <h3 id="user-name" >Welcome: User_Name</h3>
             <h4>Your Macros are:</h4>
             <div class="user-macro">
-                <p>Carbs: 160g</p>
+                <p id="user-carbs">Carbs: 160g</p>
             </div>
             <div class="user-macro">
-                <p>Protein: 160g</p>
+                <p id="user-protein">Protein: 160g</p>
             </div>
             <div class="user-macro">
-                <p>Fat: 60g</p>
+                <p id="user-fat">Fat: 60g</p>
             </div>
 
 

@@ -3,10 +3,28 @@ var query = '3lb carrots and a chicken sandwich';
 var foodResults;
 var c = document.getElementById("mycanvas");
 var ctx = c.getContext("2d");
+foodArr = [];
+var key = 
+
+userInfo = {
+  "name": "",
+  "height": 0,
+  "weight": 0,
+  "age": 0,
+  "gender": 0,
+  "bmr": 0,
+  "tdee": 0,
+  "lossPct": 0,
+  "activityLevel": 0
+
+}
+
+
+
+
+
 
 $(document).ready(function(){
-
-
 
   console.log(ctx);
   ctx.beginPath();
@@ -35,7 +53,132 @@ $(document).ready(function(){
 
 })
 
+function getUserInfo(){
+  var str = $("#user-info-form").serializeArray();
+  return str;
+}
 
+function checkUserObj(obj){
+  for (var variable in obj) {
+    if (variable == 0 || variable == 5 || variable == 6) {
+      if (obj[variable]["value"].length <0) {
+
+        return false;
+        }else{
+
+      }
+    }else if (!isNaN(obj[variable]["value"])&& obj[variable]["value"] !="") {
+    }else if (variable > 6 ||variable ==0 ) {
+
+    }else{
+
+      return false;
+    }
+  }
+
+  return true;
+}
+
+
+function parseUserInfo(obj){
+  var user = {};
+  console.log(obj)
+  user["name"] = obj[0]["value"];
+  user["age"] = parseInt(obj[1]["value"]);
+  user["height"] = heightCovertor(obj[2]["value"],obj[3]["value"]);
+  user["weight"] = weightConvertor(obj[4]["value"]);
+  user["activity"] = activityLevel(obj[6]["value"]);
+  user["gender"] = obj[5]["value"];
+  user["lossPct"] = lossPercetFinder(obj[7]["value"]);
+
+
+return user;
+
+
+
+}
+function lossPercetFinder(num){
+  switch (parseInt(num)) {
+    case 0.5:
+      return 0.15;
+      break;
+    case 1:
+      return 0.20;
+      break;
+    case 2:
+      return 0.25;
+      break;
+    default:
+
+  }
+}
+
+
+function bmrFomula (gender,weight,height,age){
+  if (gender == "Male") {
+    return 10*weight+6.25*height-5*age+5;
+  }else{
+    return 10*weight+6.25*height-5*age-161;
+  }
+}
+
+function tdeeFomula(bmr,act){
+  return bmr*act;
+}
+
+function weightConvertor(lbs){
+  return lbs *0.453592;
+}
+
+function heightCovertor(feet,inches){
+  console.log(feet)
+  console.log(inches)
+
+  var inchesTotal = (parseInt(feet) * 12) + parseInt(inches);
+  console.log(inchesTotal)
+  return inchesTotal * 2.54;
+}
+
+function activityLevel(str){
+  switch (str) {
+    case "Sedentary":
+      return 1.2;
+      break;
+    case "Lightly Active":
+      return 1.375;
+      break;
+    case "Moderately Active":
+      return 1.55;
+      break;
+    case "Very Active":
+      return 1.725;
+      break;
+    case "Extremely Active":
+      return 1.9;
+      break;
+    default:
+
+  }
+}
+
+
+
+$("button[name=submit-button]").on("click", function(){
+  var userObj = getUserInfo();
+  if (userObj.length === 8) {
+    if (checkUserObj(userObj)) {
+        $("#input-field").css("visibility", "hidden");
+        var userObject = parseUserInfo(userObj)
+        userObject["bmr"] = bmrFomula(userObject["gender"],userObject["weight"],userObject["height"],userObject["age"]);
+        userObject["tdee"] = tdeeFomula(userObject["bmr"],userObject["activity"]);
+        console.log(userObject);
+
+    }
+  }else{
+    alert("Please Fill out the form");
+  }
+
+});
 
 function resultsParse(arr){
 
@@ -60,7 +203,7 @@ $("button[name=search]").click(function(){
   $.ajax({
       method: 'GET',
       url: 'https://api.calorieninjas.com/v1/nutrition?query=' + query,
-      headers: { 'X-Api-Key': 'CcB1VW26JLsX9g8B6rR9IQ==gOje644eZjchTa5Q'},
+      headers: { 'X-Api-Key': key},
       contentType: 'application/json',
       success: function(result) {
         console.log(result)
