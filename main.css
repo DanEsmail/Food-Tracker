@@ -3,8 +3,11 @@ div{
 }
 canvas{
   border: solid black;
-}'
+}
 
+header h1{
+  text-align: center;
+}
 #main-container{
   width: 90%;
   height: 100%;
@@ -17,7 +20,7 @@ canvas{
   background-color: white;
   width: 100%;
   height: 100%;
-  visibility: visible;
+  visibility: hidden;
   position: relative;
 
 }
@@ -81,6 +84,11 @@ input{
   position: relative;
 }
 
+#eat-button{
+  position: relative;
+  left: 40%;
+
+}
 #infobox{
   width: 100%;
   height: 40%;

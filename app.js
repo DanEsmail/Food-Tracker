@@ -4,8 +4,8 @@ var foodResults;
 var c = document.getElementById("mycanvas");
 var ctx = c.getContext("2d");
 foodArr = [];
-var key = 
-
+var key =
+var foodObj = {};
 userInfo = {
   "name": "",
   "height": 0,
@@ -97,6 +97,7 @@ return user;
 
 
 }
+
 function lossPercetFinder(num){
   switch (parseInt(num)) {
     case 0.5:
@@ -112,7 +113,6 @@ function lossPercetFinder(num){
 
   }
 }
-
 
 function bmrFomula (gender,weight,height,age){
   if (gender == "Male") {
@@ -161,7 +161,21 @@ function activityLevel(str){
   }
 }
 
+function foodListUpdate(arr){
+  var str = ""
+  if (arr.length <2) {
+    str = arr[0]["name"];
+  }else{
+    for (var i = 0; i < arr.length; i++) {
+      str += arr[i]["name"] + ", "
 
+  }
+  console.lof(str)
+  $("#food-list").text(str);
+
+  }
+
+}
 
 $("button[name=submit-button]").on("click", function(){
   var userObj = getUserInfo();
@@ -182,20 +196,33 @@ $("button[name=submit-button]").on("click", function(){
 
 function resultsParse(arr){
 
-  for (var i = 0; i < arr["items"].length; i++) {
+  var obj = {
+    "name": arr["items"][0]["name"],
+    "carbs":arr["items"][0]["carbohydrates_total_g"],
+    "protein":arr["items"][0]["protein_g"],
+    "sugar":arr["items"][0]["sugar_g"],
+    "calories":arr["items"][0]["calories"],
+    "fat":arr["items"][0]["fat_total_g"],
+  }
+
     $("#Cal-info").text("Calories: " + arr["items"][0]["calories"].toString());
     $("#Carb-info").text("Carbs: " + arr["items"][0]["carbohydrates_total_g"].toString()+"g");
     $("#Sugar-info").text("Sugar: " + arr["items"][0]["sugar_g"].toString()+"g");
     $("#serving-info").text("Serving: " + arr["items"][0]["serving_size_g"].toString()+"g");
     $("#protein-info").text("Protein: " + arr["items"][0]["protein_g"]);
-    $("#Fat-info").text("Fat: " + arr["items"][0]["protein_g"].toString()+"g");
+    $("#Fat-info").text("Fat: " + arr["items"][0]["fat_total_g"].toString()+"g");
     $("#displayed-food").text(arr["items"][0]["name"]);
-
-
-
-  }
+return obj;
 }
 
+$("button[name=Eat-button]").on("click",function(){
+  if ($("#displayed-food").text().length>0) {
+
+    foodArr.push(foodObj)
+    foodListUpdate(foodArr);
+
+  }
+})
 
 $("button[name=search]").click(function(){
   query = $("input[name=search-field]").val();
@@ -207,7 +234,8 @@ $("button[name=search]").click(function(){
       contentType: 'application/json',
       success: function(result) {
         console.log(result)
-        resultsParse(result);
+        foodObj = resultsParse(result);
+
       },
       error: function ajaxError(jqXHR) {
           console.error('Error: ', jqXHR.responseText);
