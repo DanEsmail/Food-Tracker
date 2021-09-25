@@ -99,7 +99,7 @@
         <div id="all-foods-box" class="under-input">
           <h3>Foods eatten today</h3>
           <br>
-          <p  id="food-list">something</p>
+          <p  id="food-list"></p>
         </div>
       </div>
       <!-- right side of the webpage. used for data -->
@@ -108,33 +108,76 @@
         <div id="user-info">
             <h3 id="user-name" >Welcome: User_Name</h3>
             <h4>Your Macros are:</h4>
-            <div class="user-macro">
-                <p id="user-carbs">Carbs: 160g</p>
+            <div class="info-box">
+              <div class="user-macro">
+                  <p id="user-cal">Calories: 0</p>
+              </div>
+              <div class="user-macro">
+                  <p id="user-tdee">TDEE: 0</p>
+              </div>
+              <div class="user-macro">
+                  <p id="user-bmr">BMR: 0</p>
+              </div>
             </div>
-            <div class="user-macro">
-                <p id="user-protein">Protein: 160g</p>
+
+
+            <div class="info-box">
+              <div class="user-macro">
+                  <p id="user-carbs">Carbs: 0g</p>
+              </div>
+              <div class="user-macro">
+                  <p id="user-protein">Protein: 0g</p>
+              </div>
+              <div class="user-macro">
+                  <p id="user-fat">Fat: 0g</p>
+              </div>
+
             </div>
-            <div class="user-macro">
-                <p id="user-fat">Fat: 60g</p>
-            </div>
+
 
 
         </div>
 
         <div id="pie-graph">
-          <div id="pie-chart">
-            <canvas id="mycanvas" width="350" height="200"></canvas>
+
+          <div id="pie-chart" class="pie-div">
+            <canvas id="mycanvas"></canvas>
+            </div>
+
+            <div id="macro-pcts" class="pie-div">
+                <button type="button" name="button">+</button>
+                <p id="carb-pct">Carbs: 25%</p>
+                <button type="button" name="button">-</button>
+                <button type="button" name="button">+</button>
+                <p id="carb-pct">Protein: 50%</p>
+                <button type="button" name="button">-</button>
+                <button type="button" name="button">+</button>
+                <p id="carb-pct">Fat: 25%</p>
+                <button type="button" name="button">-</button>
           </div>
+
         </div>
+
+
         <div id="bar-graph" class="">
           <div id="carbs-bar" class="bar-graph">
-            <p>Carbs 40/160</p>
+            <div id="carb-bar-filler" class="bar-filler">
+
+            </div>
+            <p id="carb-label" class="bar-label">Carbs 0/160</p>
+
           </div>
           <div id="protein-bar" class="bar-graph">
-              <p>Protein 40/160</p>
+            <div id="protein-bar-filler" class="bar-filler">
+
+            </div>
+            <p id="protein-label" class="bar-label">Protein 0/160</p>
           </div>
           <div id="fat-bar" class="bar-graph">
-              <p>Fat 40/160</p>
+            <div id="fat-bar-filler" class="bar-filler">
+
+            </div>
+            <p id="fat-label" class="bar-label">Fat 0/60</p>
           </div>
         </div>
       </div>

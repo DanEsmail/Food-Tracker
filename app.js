@@ -7,17 +7,11 @@ foodArr = [];
 var key =
 var foodObj = {};
 userInfo = {
-  "name": "",
-  "height": 0,
-  "weight": 0,
-  "age": 0,
-  "gender": 0,
-  "bmr": 0,
-  "tdee": 0,
-  "lossPct": 0,
-  "activityLevel": 0
+  "carbs": 160,
+  "protein": 160,
+  "fat": 60
 
-}
+};
 
 
 
@@ -26,26 +20,34 @@ userInfo = {
 
 $(document).ready(function(){
 
-  console.log(ctx);
+  x=parseInt($("#mycanvas").css("width"));
+  y=parseInt($("#mycanvas").css("height"));
+
+  var startX = x*.50;
+  var startY = y*.4;
+  var radius = x/4.5;
+
+  console.log(x + "," + y + "," + startX + "," + startY + "," +radius)
+
   ctx.beginPath();
-  ctx.moveTo(175,100);
-  ctx.arc(175, 100, 80, 0.5 * Math.PI, 1.5 * Math.PI);
+  ctx.moveTo(startX,startY);
+  ctx.arc(startX, startY, radius, 0.5 * Math.PI, 1.5 * Math.PI);
   ctx.closePath();
   ctx.fillStyle = "red";
   ctx.fill();
   ctx.stroke();
 
   ctx.beginPath();
-  ctx.moveTo(175,100);
-  ctx.arc(175, 100, 80, 1.5* Math.PI, 2 * Math.PI);
+  ctx.moveTo(startX,startY);
+  ctx.arc(startX, startY, radius, 1.5* Math.PI, 2 * Math.PI);
   ctx.closePath();
   ctx.fillStyle = "Blue";
   ctx.fill();
   ctx.stroke();
 
   ctx.beginPath();
-  ctx.moveTo(175,100);
-  ctx.arc(175, 100, 80, 2* Math.PI, 2.5 * Math.PI);
+  ctx.moveTo(startX,startY);
+  ctx.arc(startX, startY, radius, 2* Math.PI, 2.5 * Math.PI);
   ctx.closePath();
   ctx.fillStyle = "orange";
   ctx.fill();
@@ -53,11 +55,30 @@ $(document).ready(function(){
 
 })
 
+
+//used to add up all the macros from the food
+function getUsersData(arr){
+  var carbs = 0;
+  var protein = 0;
+  var fat =0;
+  for (var i = 0; i < arr.length; i++) {
+    carbs += arr[i]["carbs"];
+    protein += arr[i]["protein"];
+    fat+= arr[i]["fat"];
+  }
+  userInfo["currentCarbs"] = carbs;
+  userInfo["currentProtein"] = protein;
+  userInfo["currentFat"] = fat;
+}
+
+
+//used to seralize the users info
 function getUserInfo(){
   var str = $("#user-info-form").serializeArray();
   return str;
 }
 
+//used to make sure the form is vaild
 function checkUserObj(obj){
   for (var variable in obj) {
     if (variable == 0 || variable == 5 || variable == 6) {
@@ -79,7 +100,7 @@ function checkUserObj(obj){
   return true;
 }
 
-
+//creates a users object from the form data
 function parseUserInfo(obj){
   var user = {};
   console.log(obj)
@@ -90,6 +111,10 @@ function parseUserInfo(obj){
   user["activity"] = activityLevel(obj[6]["value"]);
   user["gender"] = obj[5]["value"];
   user["lossPct"] = lossPercetFinder(obj[7]["value"]);
+  user["currentCarbs"] = 0;
+  user["currentProtein"]=0;
+  user["currentFat"]=0;
+  user["carbs"] = 0;
 
 
 return user;
@@ -98,6 +123,7 @@ return user;
 
 }
 
+//used to find the % fat for the user
 function lossPercetFinder(num){
   switch (parseInt(num)) {
     case 0.5:
@@ -114,6 +140,7 @@ function lossPercetFinder(num){
   }
 }
 
+//bmr fomula
 function bmrFomula (gender,weight,height,age){
   if (gender == "Male") {
     return 10*weight+6.25*height-5*age+5;
@@ -122,12 +149,40 @@ function bmrFomula (gender,weight,height,age){
   }
 }
 
+//tdee formula
 function tdeeFomula(bmr,act){
   return bmr*act;
 }
 
 function weightConvertor(lbs){
   return lbs *0.453592;
+}
+
+//updates the bar graphs
+function updateBarGraph(obj){
+  var carbPct = obj["currentCarbs"]/obj["carbs"]*100;
+  var proteinPct = obj["currentProtein"]/obj["protein"]*100;
+  var fatPct = obj["currentFat"]/obj["fat"]*100;
+    $("#carb-bar-filler").css("width", carbPct.toString() + "%");
+    $("#protein-bar-filler").css("width", proteinPct.toString() + "%");
+    $("#fat-bar-filler").css("width", fatPct.toString() + "%");
+
+    $("#carb-label").text("Carbs " + obj["currentCarbs"].toPrecision(3) + "/" + obj["carbs"]);
+    $("#protein-label").text("Protein " + obj["currentProtein"].toPrecision(3) + "/" + obj["protein"]);
+    $("#fat-label").text("Fat " + obj["currentFat"].toPrecision(3) + "/" + obj["fat"]);
+
+
+
+
+}
+
+function upadteUser(obj){
+  var userArr = ["name","cal","tdee","bmr","carbs","protein","fat"];
+
+}
+
+function idTextChange(id, str){
+  $("#" + id).text(str);
 }
 
 function heightCovertor(feet,inches){
@@ -161,20 +216,24 @@ function activityLevel(str){
   }
 }
 
+//update the food list to the dom
 function foodListUpdate(arr){
   var str = ""
+  console.log(arr.length)
   if (arr.length <2) {
     str = arr[0]["name"];
   }else{
     for (var i = 0; i < arr.length; i++) {
-      str += arr[i]["name"] + ", "
+      if (arr.length-1 == i) {
+        str += arr[i]["name"];
+      }else {
+        str += arr[i]["name"] + ", ";
+      }
 
+    }
   }
-  console.lof(str)
+  console.log(str)
   $("#food-list").text(str);
-
-  }
-
 }
 
 $("button[name=submit-button]").on("click", function(){
@@ -185,7 +244,7 @@ $("button[name=submit-button]").on("click", function(){
         var userObject = parseUserInfo(userObj)
         userObject["bmr"] = bmrFomula(userObject["gender"],userObject["weight"],userObject["height"],userObject["age"]);
         userObject["tdee"] = tdeeFomula(userObject["bmr"],userObject["activity"]);
-        console.log(userObject);
+        userInfo = userObject;
 
     }
   }else{
@@ -217,10 +276,13 @@ return obj;
 
 $("button[name=Eat-button]").on("click",function(){
   if ($("#displayed-food").text().length>0) {
-
-    foodArr.push(foodObj)
-    foodListUpdate(foodArr);
-
+    if (foodObj["name"] != undefined) {
+      foodArr.push(foodObj)
+      foodListUpdate(foodArr);
+      getUsersData(foodArr);
+      updateBarGraph(userInfo);
+      foodObj = {};
+    }
   }
 })
 
