@@ -125,6 +125,7 @@ return user;
 
 //used to find the % fat for the user
 function lossPercetFinder(num){
+  num = parseInt(num)
   switch (parseInt(num)) {
     case 0.5:
       return 0.15;
@@ -178,7 +179,23 @@ function updateBarGraph(obj){
 
 function upadteUser(obj){
   var userArr = ["name","cal","tdee","bmr","carbs","protein","fat"];
+  var textArr = ["", "Calories:", "BMR:", "TDEE:", "Carbs:", "Protein:", "Fat:"]
+  for (var i = 0; i < userArr.length; i++) {
+    if (typeof(obj[userArr[i]]) == "string") {
+      var str = obj[userArr[i]]
+      $("#user-" + userArr[i]).text(textArr[i] + " " + str);
+    }else{
+      if (i > 3) {
+        var str = obj[userArr[i]].toFixed(2)
+        $("#user-" + userArr[i]).text(textArr[i] + " " + str + "g");
+      } else {
+        var str = obj[userArr[i]].toFixed(2)
+        $("#user-" + userArr[i]).text(textArr[i] + " " + str);
+      }
 
+    }
+
+  }
 }
 
 function idTextChange(id, str){
@@ -216,6 +233,17 @@ function activityLevel(str){
   }
 }
 
+function updateCaloires(tdee, pct){
+  return tdee - (tdee*pct);
+}
+
+function updateMacros(obj){
+
+  userInfo["carbs"] = obj["cal"] - (obj["cal"]*(parseInt($("#span-carbs").text())/100));
+  userInfo["protein"] = obj["cal"] -(obj["cal"]*(parseInt($("#span-protein").text())/100));
+  userInfo["fat"] = obj["cal"] -(obj["cal"]*(parseInt($("#span-fat").text())/100));
+}
+
 //update the food list to the dom
 function foodListUpdate(arr){
   var str = ""
@@ -245,7 +273,9 @@ $("button[name=submit-button]").on("click", function(){
         userObject["bmr"] = bmrFomula(userObject["gender"],userObject["weight"],userObject["height"],userObject["age"]);
         userObject["tdee"] = tdeeFomula(userObject["bmr"],userObject["activity"]);
         userInfo = userObject;
-
+        userInfo["cal"] =  updateCaloires(userInfo["tdee"],userInfo["lossPct"]);
+        updateMacros(userInfo);
+        upadteUser(userInfo);
     }
   }else{
     alert("Please Fill out the form");
